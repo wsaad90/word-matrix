@@ -17,12 +17,11 @@ public class WordMatrix {
     static ArrayList<String> dictionary = new ArrayList<>(); //list containing all dictionary words
 
     public static void main(String[] args) {
-        String filePath = "/Users/Account/Desktop/prac/myDictionary.txt"; //file path to dictionary
-        char[][] grid = buildFoundation();                               //building an empty matrix
-        constructDictionary(filePath, grid.length);        //contructs the list of dictionary words
-        fillMatrix(grid, grid.length);                             //filling the matrix with values
-        System.out.println("\nValid Matrix: " + checkMatrix(grid));         //check if valid matrix
-        printMatrix(grid);                                               //neatly prints the matrix
+        char[][] grid = buildFoundation();                                  //building an empty matrix
+        constructDictionary("resources/myDictionary.txt", grid.length);  //contructs the list of words
+        fillMatrix(grid, grid.length);                                //filling the matrix with values
+        System.out.println("\nValid Matrix: " + checkMatrix(grid));            //check if valid matrix
+        printMatrix(grid);                                                  //neatly prints the matrix
     }
 
     /**
@@ -145,8 +144,12 @@ public class WordMatrix {
      * @param gridSize - the NxN size of the matrix
      */
     public static void constructDictionary(String path, int gridSize) {
+        //grabbing the dictionary file from the resources directory
+        ClassLoader classLoader = new WordMatrix().getClass().getClassLoader();
+        File file = new File(classLoader.getResource(path).getFile());
+               
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path));
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] tokens = line.split("\\s+");
@@ -159,8 +162,10 @@ public class WordMatrix {
             }
         } catch (FileNotFoundException ex) { //file path is more than likely incorrect
             System.out.println("404: FILE NOT FOUND. Check the filePath variable for correct file path.");
+            System.exit(0);
         } catch (IOException ex) {           //bad user input
             System.out.println("400: BAD REQUEST. There was in I/O Exception.");
+            System.exit(0);
         }
     }
 
