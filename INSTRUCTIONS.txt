@@ -1,11 +1,22 @@
 INTRO:
-This program will read a text file located in the resources directory of this repository. The file is a list of dictionary words. Every word on the list is a valid word that is allowed in the matrix that will be constructed. The original source of the dictionary (text) file is listed below.
+This program will read a text file located in the resources directory of this repository. 
+The file is a list of dictionary words. Every word on the list is a valid word that is 
+allowed in the matrix that will be constructed. The original source of the dictionary 
+(text) file is listed below.
 Source: https://github.com/dwyl/english-words/blob/master/words_alpha.txt
 
 RUNNING:
-When running the program, pick a number from 3 - 5, that’ll be the size of your NxN matrix. Enter the same amount of words as the size entered. Each additional entry must be the same character length of the size entered. Each additional entry must be a registered word in the dictionary file. Every word entered constructs a row of the matrix.
+When running the program, pick a number from 3 - 5, that will be the size of your NxN matrix. 
+Enter the same amount of words as the size entered. Each additional entry must be the same 
+character length of the size entered. Each additional entry must be a registered word in 
+the dictionary file. Every word entered constructs a row of the matrix.
 
 RESULTS:
-When the program finishes running, a list of words will be displayed. The list displays the words entered in the matrix in rows and columns. The validity of the matrix is displayed. For the matrix to valid, each row and column must be a registered word in the dictionary file. Examples of valid matrices are located in this repository. A copy of the constructed matrix is displayed at the end.
+When the program finishes running, a list of words will be displayed. 
+The list displays the words entered in the matrix in rows and columns. 
+The validity of the matrix is displayed. For the matrix to valid, each row and 
+column must be a registered word in the dictionary file. There cannot be any 
+duplicate words in the matrix. Examples of valid matrices are located in this repository. 
+A copy of the constructed matrix is displayed at the end.
 
 

@@ -131,8 +131,56 @@ public class WordMatrix {
                 }
             }
         }
-
+        
+        //checking for duplicates in the matrix
+        if (checkForDupes(rowsForChecking,colsForChecking)) {
+            rowCheck = false;
+            colCheck = false;
+        }
+        
         return rowCheck && colCheck == true;
+    }
+
+    /**
+     * Checks for duplicate words between two String arrays.
+     *
+     * @param rows - row words of the char matrix
+     * @param cols - col words of the char matrix
+     * @return true if duplicates found, false if not
+     */
+    public static boolean checkForDupes(String[] rows, String[] cols) {
+        //checking for duplicates rows by cols
+        for (int i = 0; i < rows.length; i++) {
+            for (int j = 0; j < cols.length; j++) {
+                if (rows[i].equals(cols[j])) {
+                    System.out.println("\nDuplicate word detected.");
+                    return true;
+                }
+            }
+        }
+        //checking for duplicates rows by rows
+        for (int i = 0; i < rows.length; i++) {
+            for (int j = 0; j < rows.length; j++) {
+                if (rows[i].equals(rows[j])) {
+                    if (i != j) {
+                        System.out.println("\nDuplicate word detected.");
+                        return true;
+                    }
+                }
+            }
+        }
+        //checking for duplicates cols by cols
+        for (int i = 0; i < cols.length; i++) {
+            for (int j = 0; j < cols.length; j++) {
+                if (cols[i].equals(cols[j])) {
+                    if (i != j) {
+                        System.out.println("\nDuplicate word detected.");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -147,7 +195,7 @@ public class WordMatrix {
         //grabbing the dictionary file from the resources directory
         ClassLoader classLoader = new WordMatrix().getClass().getClassLoader();
         File file = new File(classLoader.getResource(path).getFile());
-               
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
