@@ -14,7 +14,7 @@ import java.io.*;
  */
 public class WordMatrix {
 
-    static ArrayList<String> dictionary = new ArrayList<>(); //list containing all dictionary words
+    static List<String> dictionary = new ArrayList<>(); //list containing all dictionary words
 
     public static void main(String[] args) {
         char[][] grid = buildFoundation();                                  //building an empty matrix
@@ -25,37 +25,28 @@ public class WordMatrix {
     }
 
     /**
-     * Method that fills the matrix with the user's input. Makes sure the word
-     * is a valid dictionary word and is the same length as the matrix.
+     * Method that fills the matrix. Makes sure the word is a valid 
+     * dictionary word and is the same length as the matrix.
      *
      * @param grid - our matrix
      * @param gridSize - the size of the matrix
      * @return - a filled matrix of user entered values
      */
     public static char[][] fillMatrix(char[][] grid, int gridSize) {
-        Scanner strInput = new Scanner(System.in);
-        char[] wordSplit = null;
-        int inputCount = 0;
-        System.out.println("\nNow, enter a registered dictionary word " + gridSize + " times.\n");
+        int loopControl = 0;
         do {
-            System.out.print("Enter a registered dictionary word: ");
-            String key = strInput.nextLine();
-
-            wordSplit = key.toCharArray();    //make a character array out of entered string            
+            char[] wordSplit = dictionary.get((int) (Math.random() * dictionary.size())).toCharArray();
             for (int i = 0; i < wordSplit.length; i++) {
-                grid[inputCount][i] = wordSplit[i];  //fill grid's respective row with chars
+                grid[loopControl][i] = wordSplit[i];
             }
-
-            if (key.length() != gridSize || !checkWord(key)) {    //make sure input is valid
-                System.out.println("\nString length MUST equal size of matrix and");
-                System.out.println("must be a registered word in myDictionary.txt.");
-                System.out.println("\nEnter a registered dictonary word same character ");
-                System.out.print("length as matrix: ");
-            } else {
-                inputCount++;               //increment input counter ONLY if input is valid
-            }
-        } while (inputCount != gridSize);
-        return grid;
+            loopControl++;
+        } while (loopControl != gridSize);
+        
+        if (checkMatrix(grid)) {
+            return grid;
+        } else {
+            return fillMatrix(grid, gridSize);
+        }
     }
 
     /**
@@ -122,6 +113,7 @@ public class WordMatrix {
         }
 
         //checking if all columns are registered words in the dictionary
+        outer:
         for (int i = 0; i < colsForChecking.length; i++) {
             for (int j = 0; j < dictionary.size(); j++) {
                 if (checkWord(colsForChecking[i])) {
@@ -131,13 +123,13 @@ public class WordMatrix {
                 }
             }
         }
-        
+
         //checking for duplicates in the matrix
-        if (checkForDupes(rowsForChecking,colsForChecking)) {
+        if (checkForDupes(rowsForChecking, colsForChecking)) {
             rowCheck = false;
             colCheck = false;
         }
-        
+
         return rowCheck && colCheck == true;
     }
 
